@@ -36,23 +36,24 @@ app.post('/voiture', (request, response)=>{
 
 // read
 app.get('/voiture', (request, response)=>{
-    dbConnect.query("SELECT * FROM voiture WHERE id= "+request.body.id+";", (err, result)=>{
+    dbConnect.query("SELECT * FROM voiture;", (err, result)=>{
         if(err) throw err;
         else response.status(200).json(result);
+        console.log(result);
     })
 })
 
 // update
-app.post('/voiture', (request, response)=>{
-    dbConnect.query("UPDATE `voiture` SET `marque`='"+request.body.marque+"',`modele`='"+request.body.modele+"',`kilometrage`='"+request.body.kilometrage+"',`prix`='"+request.body.prix+"' WHERE id= "+request.body.id+";", (err, result)=>{
+app.put('/voiture/:id', (request, response)=>{
+    dbConnect.query("UPDATE `voiture` SET `marque`='"+request.body.marque+"',`modele`='"+request.body.modele+"',`kilometrage`='"+request.body.kilometrage+"',`prix`='"+request.body.prix+"' WHERE id= "+request.params.id+";", (err, result)=>{
         if(err) throw err;
         else response.status(200).json(result);
     })
 })
 
 // delete
-app.delete('/voiture', (request, response)=>{
-    dbConnect.query("DELETE FROM voiture WHERE id="+request.body.id+";", (err, result)=>{
+app.delete('/voiture/:id', (request, response)=>{
+    dbConnect.query("DELETE FROM voiture WHERE id="+request.params.id+";", (err, result)=>{
         if(err) throw err;
         else response.status(200).json(result);
     })
